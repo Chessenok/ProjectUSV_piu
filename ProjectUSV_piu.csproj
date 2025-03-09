@@ -50,13 +50,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModelLevel\ModelLevel.csproj">
-      <Project>{14c693ec-3038-41c6-9366-09265da367ce}</Project>
-      <Name>ModelLevel</Name>
-    </ProjectReference>
     <ProjectReference Include="DataLevel\DataLevel.csproj">
       <Project>{163f3298-7446-4989-818b-cbd7fac94876}</Project>
       <Name>DataLevel</Name>
+    </ProjectReference>
+    <ProjectReference Include="ModelLevel\ModelLevel.csproj">
+      <Project>{14c693ec-3038-41c6-9366-09265da367ce}</Project>
+      <Name>ModelLevel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
