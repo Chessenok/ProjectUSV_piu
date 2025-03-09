@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9302782F-5C53-4CBB-9330-745B98BCE391}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ProjectUSV_piu</RootNamespace>
-    <AssemblyName>ProjectUSV_piu</AssemblyName>
+    <ProjectGuid>{163F3298-7446-4989-818B-CBD7FAC94876}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataLevel</RootNamespace>
+    <AssemblyName>DataLevel</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,20 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="administrate_Bmw_availableCars.cs" />
+    <Compile Include="Factory.cs" />
+    <Compile Include="FactoryBMW.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ModelLevel\ModelLevel.csproj">
+    <ProjectReference Include="..\..\ModelLevel\ModelLevel.csproj">
       <Project>{14c693ec-3038-41c6-9366-09265da367ce}</Project>
       <Name>ModelLevel</Name>
-    </ProjectReference>
-    <ProjectReference Include="DataLevel\DataLevel.csproj">
-      <Project>{163f3298-7446-4989-818b-cbd7fac94876}</Project>
-      <Name>DataLevel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
