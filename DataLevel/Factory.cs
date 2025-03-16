@@ -14,8 +14,28 @@ namespace ProjectUSV_piu
         protected Product[] options = null;
         protected bool packageFlag;
 
+        #region consts
 
-        protected virtual Car GetCarAndPriceByComplectation(Car BasicCar, string index, int price, Product[] allOptions )
+        private const char MAIN_SEPARATOR = ';';
+        private const char OPTION_SEPARATOR = ',';
+        private const char INTEROPTION_SEPARATOR = '.';
+
+        private const int VIN_INDEX = 0;
+        private const int PRODUCER_COMPANY_INDEX = 1;
+        private const int DESCRIPTION_INDEX = 2;
+        private const int PRICE_INDEX = 3;
+        private const int ENGINE_INDEX = 4;
+        private const int COMPLECTATION_INDEX = 5;
+        private const int YEAR_INDEX = 6;
+        private const int KM_ON_BOARD_INDEX = 7;
+        private const int OPTIONS_INDEX = 8;
+
+        #endregion
+
+
+        protected Dictionary<string, Engine> _engines = new Dictionary<string, Engine>();
+
+        protected virtual Car GetCarAndPriceByDescription(Car BasicCar, string index, int price, Product[] allOptions )
         {
             if (complectations.TryGetValue(index, out var data))
             {
@@ -23,7 +43,7 @@ namespace ProjectUSV_piu
             }
 
             price = 0;
-            return null; // error
+            return null;
         }
 
 
@@ -45,15 +65,23 @@ namespace ProjectUSV_piu
             }
             return addedPrice;
         }
-
         public virtual List<string> GetAllOptions()
         {
-           List<string> result = new List<string>();
+            List<string> result = new List<string>();
             foreach (var option in optionList)
             {
                 result.Add($"Option {option.Description} is available for {option.Price.ToString()}$");
             }
             return result;
+        }
+
+
+        #region toStringStuffForFiles
+
+        public virtual Car BuildCarFromString(string str)
+        {
+           var data = str.Split(MAIN_SEPARATOR);
+            return new Car( data[PRODUCER_COMPANY_INDEX], data[DESCRIPTION_INDEX], int.Parse(data[PRICE_INDEX]), GetModelFromDescription(data[DESCRIPTION_INDEX]), data[VIN_INDEX], int.Parse(data[KM_ON_BOARD_INDEX]), complectations[data[COMPLECTATION_INDEX]].engine, data[COMPLECTATION_INDEX], OptionsFromString(data[OPTIONS_INDEX]));  
         }
 
         public virtual List<string> GetAllComplectationsForDescription(string targetDescription)
@@ -69,7 +97,105 @@ namespace ProjectUSV_piu
             return result;
         }
 
-        public virtual Car BuildNew(Car basicCar,string complectation, Product[] addOptions)
+
+        private string GetModelFromDescription(string d)
+        {
+            foreach(var item in complectations)
+            {
+                if(item.Value.description == d)
+                {
+                    return item.Value.model; //returns first model found
+                }
+            }
+            return "Unknown Model";
+        }
+
+        public virtual string GetStringFromCar(Car car)
+        {
+            //govnocod on
+            string s = string.Empty;
+            if (string.IsNullOrEmpty(StringFromOptions(car))) 
+            {
+                 s = string.Format(
+                    "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}",
+                    car.VIN,
+                    MAIN_SEPARATOR,
+                    car.ProducerCompany,
+
+                    car.Description,
+                    car.Price.ToString(),
+                    car.Engine.EngineIndex,
+
+                    car.Complectation,
+                    car.Year,
+                    car.kmOnBoard
+
+                );
+            }
+             s = string.Format(
+                "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}",
+                car.VIN,
+                MAIN_SEPARATOR,
+                car.ProducerCompany,
+
+                car.Description,
+                car.Price.ToString(),
+                car.Engine.EngineIndex,
+
+                car.Complectation,
+                car.Year,
+                car.kmOnBoard,
+
+                StringFromOptions(car)
+            );
+            //govnocod off
+            return s;
+        }
+        protected virtual string StringFromOptions(Car car)
+        {
+            string s = string.Empty;
+            if(car.Options == null)
+            {
+                return string.Empty;
+            }
+            foreach (var item in car.Options)
+            {
+                s += string.Format("{0}{1}{2}{1}{3}", item.ProducerCompany, INTEROPTION_SEPARATOR, item.Description, item.Price.ToString()) + OPTION_SEPARATOR.ToString();
+            }
+
+            if (s.Length > 0)
+            {
+                s = s.TrimEnd(OPTION_SEPARATOR);
+            }
+            return s;
+        }
+        private Product[] OptionsFromString(string optionsString)
+        {
+            if (string.IsNullOrEmpty(optionsString))  return null; 
+            string[] optionStrings = optionsString.Split(OPTION_SEPARATOR);
+            Product[] optionsArray = new Product[optionStrings.Length];
+       
+            for (int i = 0; i < optionStrings.Length; i++)
+            { 
+                string[] optionParts = optionStrings[i].Split(INTEROPTION_SEPARATOR);
+
+                if (optionParts.Length == 3)
+                { 
+                    string producerCompany = optionParts[0];
+                    string description = optionParts[1];
+                    int price = int.Parse(optionParts[2]); 
+
+                    optionsArray[i] = new Product(producerCompany, description, price);
+                }
+            }
+
+            return optionsArray;
+        }
+
+        #endregion
+
+
+        protected virtual Car BuildNew(Car basicCar,string complectation, Product[] addOptions)
         {
             int price = 0;
 
@@ -94,7 +220,7 @@ namespace ProjectUSV_piu
                 }
             }
             price += GetPriceForOptions(addOptions);
-            return GetCarAndPriceByComplectation(basicCar, complectation,price, opts);
+            return GetCarAndPriceByDescription(basicCar, complectation,price, opts);
         }
     }
 }

@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrateCars.cs" />
+    <Compile Include="AdministrateFile.cs" />
     <Compile Include="administrate_Bmw_availableCars.cs" />
+    <Compile Include="Administrate_BMW_File.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="FactoryBMW.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

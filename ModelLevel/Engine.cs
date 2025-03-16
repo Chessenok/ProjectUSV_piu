@@ -9,22 +9,25 @@ namespace ProjectUSV_piu
         public float MaxHP { get; private set; }
 
         private string _engineType;
+        public string EngineIndex { get; private set; }
 
         private int _volume;
 
-        public Engine(string fuelType, float maxTorque, float maxHP, string engineType)
+        public Engine(string fuelType, float maxTorque, float maxHP, string engineType, string engineIndex)
         {
             FuelType = fuelType;
             MaxTorque = maxTorque;
             MaxHP = maxHP;
             _engineType = engineType;
+            EngineIndex = engineIndex;
         }        
-        public Engine(string fuelType, float maxTorque, float maxHP, string engineType, int volume)
+        public Engine(string fuelType, float maxTorque, float maxHP, string engineType,string engineIndex, int volume)
         {
             FuelType = fuelType;
             MaxTorque = maxTorque;
             MaxHP = maxHP;
             _engineType = engineType;
+            EngineIndex = engineIndex;
             _volume = volume;
         }
 

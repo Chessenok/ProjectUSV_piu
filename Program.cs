@@ -11,7 +11,7 @@ namespace ProjectUSV_piu
     internal class Program
     {
         static FactoryBMW factory = new FactoryBMW();
-        static administrate_Bmw_availableCars admin = new administrate_Bmw_availableCars();
+        static Administrate_BMW_File admin = new Administrate_BMW_File("bmwDealer.txt", factory);
         
         static void Main(string[] args)
         {
@@ -65,14 +65,14 @@ namespace ProjectUSV_piu
 
             }while ( s == "X"|| s == "x")*/ //this is will be later implemented
 
-            admin.AddAvailableCar(factory.BuildNew5Series(completation, null));
+            admin.AddCar(factory.BuildNew5Series(completation, null));
             Console.WriteLine("Car added!");
         }       
         public static void BuildAndSave3Series()
         {
             Console.WriteLine("Type complectation for car (example: 320d)");
             string completation = Console.ReadLine();
-            admin.AddAvailableCar(factory.BuildNew3Series(completation, null));
+            admin.AddCar(factory.BuildNew3Series(completation, null));
             Console.WriteLine("Car added!");
         }
 
@@ -80,11 +80,11 @@ namespace ProjectUSV_piu
         {
             Console.WriteLine("Available Cars: \n");
             int i = 0;
-            Car[] cars = admin.GetAllAvailableCars();
+            Car[] cars = admin.GetAllCars();
             foreach (Car car in cars)
             {
                 i++;
-                Console.WriteLine($"{i}.{car.ProducerCompany} {car.Model} with {car.Engine.FuelType} engine.");
+                Console.WriteLine($"{i}.{car.ProducerCompany} {car.Model} with {car.Engine.FuelType} engine.VIN:{car.VIN}");
             }
         }
 
