@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModelLevel</RootNamespace>
     <AssemblyName>ModelLevel</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -43,8 +43,11 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="EnumConverter.cs" />
+    <Compile Include="GeneralOptions.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VehicleType.cs" />
     <Compile Include="VINandTime.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

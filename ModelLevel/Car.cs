@@ -7,6 +7,7 @@ namespace ProjectUSV_piu
         public string Model { get; private set; }
         public Engine Engine { get; private set; }
 
+        public VehicleType Type { get; private set; }
         public string VIN { get; private set; }
 
         public int Year { get; private set; }
@@ -14,40 +15,27 @@ namespace ProjectUSV_piu
         public bool isSold { get; protected set; }
         public string Complectation {  get; private set; }
 
-        public Product[] Options { get; protected set; }
+        public Product[] AddOptions { get; protected set; }
+
+        public GeneralOptions Options;
 
         public int kmOnBoard { get; private set; }
-        public Car(string company,string description,int price, string model,string VIN, int kmOnBoard, Engine engine, string complectation, Product[] options) : base(company,description,price)
+        public Car(string company,string description,int price,int year, string model,string VIN, int kmOnBoard, Engine engine, string complectation,VehicleType type,GeneralOptions options, Product[] addOptions) : base(company,description,price)
         {
+            Year = year;
             Model = model;
             Engine = engine;
+            Type = type;
             Complectation = complectation;
-           this.VIN = VIN;
-            if(options != null)
+            this.VIN = VIN;
+            Options = options;
+            if(addOptions != null)
             {
-                Options = new Product[options.Length];
-                Options.CopyTo(options, 0);
+                AddOptions = new Product[addOptions.Length];
+                AddOptions.CopyTo(addOptions, 0);
             }
             
 
-            if (kmOnBoard < 10)
-                isSold = false;
-            else
-                isSold = true;
-        }        
-        public Car(string company,string description,int price, string model, int kmOnBoard, Engine engine, string complectation, Product[] options) : base(company,description,price)
-        {
-            Model = model;
-            Engine = engine;
-            Complectation = complectation;
-            if(options != null)
-            {
-                Options = new Product[options.Length];
-                Options.CopyTo(options, 0);
-            }
-            
-            VIN = VINandTime.Instance.GetNewVIN();
-            Year = VINandTime.Instance.Year;
             if (kmOnBoard < 10)
                 isSold = false;
             else
@@ -58,13 +46,15 @@ namespace ProjectUSV_piu
         {
             Model=basicCar.Model;
             Engine = engine;
-            VIN = VINandTime.Instance.GetNewVIN();
-            Year = VINandTime.Instance.Year;
+            VIN = VINandTime.GetNewVIN();
+            Year = basicCar.Year;
+            Options = basicCar.Options;
+            Type = basicCar.Type;
             Complectation = complectation;
             if (options != null)
             {
-                Options = new Product[options.Length];
-                Options.CopyTo(options, 0);
+                AddOptions = new Product[options.Length];
+                AddOptions.CopyTo(options, 0);
             }
 
             isSold = false;

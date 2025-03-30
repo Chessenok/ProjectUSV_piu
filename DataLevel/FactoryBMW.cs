@@ -10,6 +10,13 @@ namespace ProjectUSV_piu
         public readonly Car Base5series;
         public readonly Car Base3series; 
         
+        public static GeneralOptions BMW_20 = GeneralOptions.Klima | GeneralOptions.AirConditioning | GeneralOptions.RearCamera | GeneralOptions.SeatsHeat;
+
+        public static readonly GeneralOptions BMW_30 = BMW_20 | GeneralOptions.Parktronic;
+
+        public static readonly GeneralOptions BMW_40 = BMW_30 | GeneralOptions.Camera360 | GeneralOptions.TrafficAssistant;
+
+        
         #endregion
 
        public FactoryBMW()
@@ -22,15 +29,15 @@ namespace ProjectUSV_piu
             { "B57", new Engine("Diesel", 680, 320, "6 Cylinder Inline","B57", 2998) },
             { "S63", new Engine("Benzin", 750, 625, "V8","S63", 4400) }
         };
-            complectations = new Dictionary<string, (int price,string model,string description, Engine engine)>
+            complectations = new Dictionary<string, (int price,string model,string description, Engine engine, GeneralOptions options)>
             {
-                { "520i", (45200,"5 series","G30", _engines["B48"]) },
-                { "520d", (48000, "5 series", "G30", _engines["B47"]) },
-                { "530d", (54500, "5 series", "G30", _engines["B57"]) },
-                { "540i", (59900, "5 series", "G30", _engines["B58"]) },               
-                { "320i", (35200, "3 series", "G20", _engines["B48"]) },
-                { "320d", (38000, "3 series", "G20", _engines["B47"]) },
-                { "340i", (49900, "3 series", "G20", _engines["B58"]) }
+                { "520i", (45200,"5 series","G30", _engines["B48"],BMW_20) },
+                { "520d", (48000, "5 series", "G30", _engines["B47"],BMW_20) },
+                { "530d", (54500, "5 series", "G30", _engines["B57"],BMW_30) },
+                { "540i", (59900, "5 series", "G30", _engines["B58"],BMW_40) },               
+                { "320i", (35200, "3 series", "G20", _engines["B48"],BMW_20) },
+                { "320d", (38000, "3 series", "G20", _engines["B47"],BMW_20) },
+                { "340i", (49900, "3 series", "G20", _engines["B58"],BMW_40) }
             };
             optionList = new List<Product>
             {
@@ -41,8 +48,8 @@ namespace ProjectUSV_piu
                 new Product("BMW Options","Assistant Professional",2000),
                 new Product("BMW Options","Traffic Jam",1000)
             };
-           Base5series = new Car("BMW","G30", 45200,"5 series",0, _engines["B48"], "520i", null);
-           Base3series = new Car("BMW", "G20", 35200,"3 series", 0, _engines["B48"], "320i", null);
+           Base5series = new Car("BMW","G30", 45200,2020,"5 series",VINandTime.GetNewVIN(),0, _engines["B48"], "520i",VehicleType.Sedan,complectations["520i"].options , null);
+           Base3series = new Car("BMW", "G20", 35200,2020,"3 series",VINandTime.GetNewVIN() ,0, _engines["B48"], "320i",VehicleType.Sedan,complectations["320i"].options, null);
         }
 
         public Car BuildNew3Series(string complectation, Product[] options)

@@ -8,27 +8,29 @@ namespace ProjectUSV_piu
 {
     public abstract class Factory
     {
-        protected Dictionary<string, (int price,string model,string description, Engine engine)> complectations = new Dictionary<string, (int price,string model,string description, Engine engine)>();
+        protected Dictionary<string, (int price,string model,string description, Engine engine, GeneralOptions options)> complectations = new Dictionary<string, (int price,string model,string description, Engine engine, GeneralOptions options)>();
         protected List<Product> optionList = new List<Product>();
-        protected int addPrice = 0;
-        protected Product[] options = null;
+        protected int addPrice;
+        protected Product[] options;
         protected bool packageFlag;
+        
 
         #region consts
 
         private const char MAIN_SEPARATOR = ';';
-        private const char OPTION_SEPARATOR = ',';
+        private const char OPTION_SEPARATOR = '|';//generalOption Separator = ','
         private const char INTEROPTION_SEPARATOR = '.';
 
-        private const int VIN_INDEX = 0;
-        private const int PRODUCER_COMPANY_INDEX = 1;
-        private const int DESCRIPTION_INDEX = 2;
-        private const int PRICE_INDEX = 3;
-        private const int ENGINE_INDEX = 4;
-        private const int COMPLECTATION_INDEX = 5;
-        private const int YEAR_INDEX = 6;
-        private const int KM_ON_BOARD_INDEX = 7;
+        private const int PRODUCER_COMPANY_INDEX = 0;
+        private const int DESCRIPTION_INDEX = 1;
+        private const int PRICE_INDEX = 2;
+        private const int YEAR_INDEX = 3;
+        private const int VIN_INDEX = 4; 
+        private const int KM_ON_BOARD_INDEX = 5;
+        private const int COMPLECTATION_INDEX = 6;
+        private const int TYPE_INDEX = 7;
         private const int OPTIONS_INDEX = 8;
+        private const int ADDOPTIONS_INDEX = 9;
 
         #endregion
 
@@ -39,10 +41,9 @@ namespace ProjectUSV_piu
         {
             if (complectations.TryGetValue(index, out var data))
             {
-                return new Car(BasicCar, data.engine, data.price + price, index, allOptions);
+                return new Car(BasicCar, data.engine, data.price + price, index, allOptions);//багов будет дохуя))))
             }
-
-            price = 0;
+            
             return null;
         }
 
@@ -78,12 +79,7 @@ namespace ProjectUSV_piu
 
         #region toStringStuffForFiles
 
-        public virtual Car BuildCarFromString(string str)
-        {
-           var data = str.Split(MAIN_SEPARATOR);
-            return new Car( data[PRODUCER_COMPANY_INDEX], data[DESCRIPTION_INDEX], int.Parse(data[PRICE_INDEX]), GetModelFromDescription(data[DESCRIPTION_INDEX]), data[VIN_INDEX], int.Parse(data[KM_ON_BOARD_INDEX]), complectations[data[COMPLECTATION_INDEX]].engine, data[COMPLECTATION_INDEX], OptionsFromString(data[OPTIONS_INDEX]));  
-        }
-
+        
         public virtual List<string> GetAllComplectationsForDescription(string targetDescription)
         {
               List<string> result = new List<string> ();
@@ -113,52 +109,88 @@ namespace ProjectUSV_piu
         public virtual string GetStringFromCar(Car car)
         {
             //govnocod on
-            string s = string.Empty;
-            if (string.IsNullOrEmpty(StringFromOptions(car))) 
+            if (string.IsNullOrEmpty(StringFromOptions(car)))
             {
-                 s = string.Format(
-                    "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}",
-                    car.VIN,
-                    MAIN_SEPARATOR,
+                return string.Format(
+                    "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}",
                     car.ProducerCompany,
-
+                    MAIN_SEPARATOR,
                     car.Description,
-                    car.Price.ToString(),
-                    car.Engine.EngineIndex,
-
-                    car.Complectation,
+                
+                    car.Price,
                     car.Year,
-                    car.kmOnBoard
-
+                    
+                    car.VIN,
+                    car.kmOnBoard,
+                    car.Complectation,
+                
+                    car.Type,
+                    EnumConverter.GeneralOptionsToString(car.Options)
                 );
             }
-             s = string.Format(
-                "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}",
-                car.VIN,
-                MAIN_SEPARATOR,
+            return string.Format(
+                "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}{1}{10}",
                 car.ProducerCompany,
-
+                MAIN_SEPARATOR,
                 car.Description,
-                car.Price.ToString(),
-                car.Engine.EngineIndex,
-
-                car.Complectation,
+                
+                car.Price,
                 car.Year,
-                car.kmOnBoard,
 
-                StringFromOptions(car)
+                car.VIN,
+                car.kmOnBoard,
+                car.Complectation,
+                
+                car.Type,
+                EnumConverter.GeneralOptionsToString(car.Options),
+                StringFromOptions(car) 
             );
             //govnocod off
-            return s;
+        }
+
+        public virtual Car BuildCarFromString(string str)
+        {
+            var data = str.Split(MAIN_SEPARATOR);
+            if (data.Length == ADDOPTIONS_INDEX)
+            {
+                return new Car(
+                    data[PRODUCER_COMPANY_INDEX],
+                    data[DESCRIPTION_INDEX],
+                    int.Parse(data[PRICE_INDEX]),
+                    int.Parse(data[YEAR_INDEX]),
+                    GetModelFromDescription(data[DESCRIPTION_INDEX]),
+                    data[VIN_INDEX],
+                    int.Parse(data[KM_ON_BOARD_INDEX]),
+                    complectations[data[COMPLECTATION_INDEX]].engine,
+                    data[COMPLECTATION_INDEX],
+                    EnumConverter.StringToVehicleType(data[TYPE_INDEX]),
+                    EnumConverter.StringToGeneralOptions(data[OPTIONS_INDEX]),
+                null);
+            }
+            
+            return new Car(
+                data[PRODUCER_COMPANY_INDEX],
+                data[DESCRIPTION_INDEX],
+                int.Parse(data[PRICE_INDEX]),
+                int.Parse(data[YEAR_INDEX]),
+                GetModelFromDescription(data[DESCRIPTION_INDEX]),
+                data[VIN_INDEX],
+                int.Parse(data[KM_ON_BOARD_INDEX]),
+                complectations[data[COMPLECTATION_INDEX]].engine,
+                data[COMPLECTATION_INDEX],
+                EnumConverter.StringToVehicleType(data[TYPE_INDEX]),
+                EnumConverter.StringToGeneralOptions(data[OPTIONS_INDEX]), 
+                GetAddOptionsFromString(data[ADDOPTIONS_INDEX]) 
+            );
         }
         protected virtual string StringFromOptions(Car car)
         {
             string s = string.Empty;
-            if(car.Options == null)
+            if(car.AddOptions == null)
             {
                 return string.Empty;
             }
-            foreach (var item in car.Options)
+            foreach (var item in car.AddOptions)
             {
                 s += string.Format("{0}{1}{2}{1}{3}", item.ProducerCompany, INTEROPTION_SEPARATOR, item.Description, item.Price.ToString()) + OPTION_SEPARATOR.ToString();
             }
@@ -169,7 +201,7 @@ namespace ProjectUSV_piu
             }
             return s;
         }
-        private Product[] OptionsFromString(string optionsString)
+        private Product[] GetAddOptionsFromString(string optionsString)
         {
             if (string.IsNullOrEmpty(optionsString))  return null; 
             string[] optionStrings = optionsString.Split(OPTION_SEPARATOR);
@@ -195,7 +227,7 @@ namespace ProjectUSV_piu
         #endregion
 
 
-        protected virtual Car BuildNew(Car basicCar,string complectation, Product[] addOptions)
+        protected virtual Car BuildNew(Car basicCar,string complectation, Product[] addOptions) //unsolved BUT USED. Resolve or remove for similar functions.
         {
             int price = 0;
 

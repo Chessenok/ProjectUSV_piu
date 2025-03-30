@@ -11,7 +11,7 @@ namespace ProjectUSV_piu
     internal class Program
     {
         static FactoryBMW factory = new FactoryBMW();
-        static Administrate_BMW_File admin = new Administrate_BMW_File("bmwDealer.txt", factory);
+        static Administrate_BMW_File admin = new Administrate_BMW_File("BmwDealer.txt", factory);
         
         static void Main(string[] args)
         {

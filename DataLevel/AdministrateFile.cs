@@ -25,8 +25,8 @@ namespace ProjectUSV_piu
 
         public override async void AddCar(Car car)
         {
-          await AddCarAsync(car);
-         }
+            await AddCarAsync(car);
+        }
         private async Task AddCarAsync(Car car)
         {
             base.AddCar(car);
@@ -34,7 +34,7 @@ namespace ProjectUSV_piu
             await WriteCarToFileAsync(car);
         }
 
-        public async Task<List<Car>> ReadFromFileAsync()
+       /* public async Task<List<Car>> ReadFromFileAsync()
         {
             var cars = new List<Car>();
             using (var streamReader = new StreamReader(_fileName))
@@ -51,7 +51,34 @@ namespace ProjectUSV_piu
             }
 
             return cars;
-        }
+        }*/
+       
+       public async Task<List<Car>> ReadFromFileAsync()
+       {
+           var cars = new List<Car>();
+
+           using (var streamReader = new StreamReader(_fileName))
+           {
+               string line;
+               while ((line = await streamReader.ReadLineAsync()) != null)
+               {
+                   if (string.IsNullOrWhiteSpace(line))
+                       continue;
+
+                   try
+                   {
+                       Car car = _factory.BuildCarFromString(line);
+                       cars.Add(car);
+                   }
+                   catch (Exception ex)
+                   {
+                       Console.WriteLine($"Error parsing line: {line} - {ex.Message}");
+                   }
+               }
+           }
+
+           return cars;
+       }
 
         public async Task WriteCarToFileAsync(Car car)
         {

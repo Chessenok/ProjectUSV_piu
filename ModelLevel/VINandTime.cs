@@ -8,7 +8,7 @@ namespace ProjectUSV_piu
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         public int Year {  get; private set; }
-        private List<string> _allVINs = new List<string>();//for internal purposes
+        private static List<string> _allVINs = new List<string>();//for internal purposes
         private static VINandTime _instance;
         private static readonly object _lock = new object(); 
 
@@ -30,7 +30,7 @@ namespace ProjectUSV_piu
             }
         }
  
-        public string GetNewVIN()//17 symbols
+        public static string GetNewVIN()//17 symbols
         {
             Random random = new Random();
             char[] str = new char[17];
