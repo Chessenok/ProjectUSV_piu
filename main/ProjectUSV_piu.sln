@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLevel", "DataLevel\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLevel", "ModelLevel\ModelLevel.csproj", "{14C693EC-3038-41C6-9366-09265DA367CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpfApp1", "..\wpfApp1\wpfApp1.csproj", "{FB832C94-23D6-4536-A18F-DD0252E75DF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{14C693EC-3038-41C6-9366-09265DA367CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14C693EC-3038-41C6-9366-09265DA367CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14C693EC-3038-41C6-9366-09265DA367CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB832C94-23D6-4536-A18F-DD0252E75DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB832C94-23D6-4536-A18F-DD0252E75DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB832C94-23D6-4536-A18F-DD0252E75DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB832C94-23D6-4536-A18F-DD0252E75DF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

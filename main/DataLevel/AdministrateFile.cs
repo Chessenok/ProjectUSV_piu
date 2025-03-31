@@ -8,13 +8,13 @@ namespace ProjectUSV_piu
     public class AdministrateFile : AdministrateCars
     {
         private string _fileName;
-        private Factory _factory;
+        public Factory Factory { get; protected set; }
         public AdministrateFile(string FileName, Factory factory)
         {
             _fileName = FileName;
             Stream streamFisierText = File.Open(FileName, FileMode.OpenOrCreate);
             streamFisierText.Close();
-            _factory = factory;
+            Factory = factory;
             OnInitialise();
         }
 
@@ -67,7 +67,7 @@ namespace ProjectUSV_piu
 
                    try
                    {
-                       Car car = _factory.BuildCarFromString(line);
+                       Car car = Factory.BuildCarFromString(line);
                        cars.Add(car);
                    }
                    catch (Exception ex)
@@ -84,7 +84,7 @@ namespace ProjectUSV_piu
         {
             using (var streamWriter = new StreamWriter(_fileName, append: true))
             { 
-                string carString = _factory.GetStringFromCar(car);
+                string carString = Factory.GetStringFromCar(car);
 
                 await streamWriter.WriteLineAsync(carString);
             }

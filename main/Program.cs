@@ -19,6 +19,7 @@ namespace ProjectUSV_piu
             string x;
             do
             {
+                GetAvailableCars();
                 Console.WriteLine("Select option: \n A.Show available complectations for BMW 5 series \n B. Build a new 5 series \n C. Show all saved cars \n D. Show all available options \n E. Show available complectations for 3 series \n F. Build a new 3 series. \n X. Exit");
                 x = Console.ReadLine();
                 switch (x)

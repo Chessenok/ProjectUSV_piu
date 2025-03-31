@@ -7,7 +7,7 @@ namespace ProjectUSV_piu
     {
         public administrate_Bmw_availableCars()
         { 
-
+            
             if (!_instance)
             {
                 _carsList = new List<Car>();
