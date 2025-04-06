@@ -1,2 +1,6 @@
 BMW;G20;38000;2020;J9OXFKILCFX3UINYR;0;320d;Sedan;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
 BMW;G30;59900;2020;2Q1QW1MBQAOCN8BDT;0;540i;Sedan;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G30;54500;2020;ULQ9LL5USDVRO89VN;0;530d;Sedan;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G20;35200;2020;83S3L8DL6PT7PS1XR;0;320i;Sedan;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G30;59900;2020;ZS4M290ZYFPS4HZX7;0;540i;Sedan;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G20;49900;2020;GKTN8EW0AW4XON723;0;340i;Sedan;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant

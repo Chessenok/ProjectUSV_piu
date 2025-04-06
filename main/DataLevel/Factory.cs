@@ -8,12 +8,14 @@ namespace ProjectUSV_piu
 {
     public abstract class Factory
     {
-        protected Dictionary<string, (int price,string model,string description, Engine engine, GeneralOptions options)> complectations = new Dictionary<string, (int price,string model,string description, Engine engine, GeneralOptions options)>();
+        protected Dictionary<string, (int price, string model, string description, Engine engine, GeneralOptions options)> complectations = new Dictionary<string, (int price, string model, string description, Engine engine, GeneralOptions options)>();
         protected List<Product> optionList = new List<Product>();
         protected int addPrice;
         protected Product[] options;
         protected bool packageFlag;
         
+
+
 
         #region consts
 
@@ -47,6 +49,12 @@ namespace ProjectUSV_piu
             return null;
         }
 
+        public bool ComplectationExists(string s)
+        {
+            if(complectations.ContainsKey(s))
+                return true;
+            return false;   
+        }
 
         public void SetOptionPackage(Product[] options, int price)
         {
