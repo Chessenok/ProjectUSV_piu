@@ -19,7 +19,7 @@ namespace ProjectUSV_piu
 
         #region consts
 
-        private const char MAIN_SEPARATOR = ';';
+        public const char MAIN_SEPARATOR = ';';
         private const char OPTION_SEPARATOR = '|';//generalOption Separator = ','
         private const char INTEROPTION_SEPARATOR = '.';
 
@@ -27,12 +27,13 @@ namespace ProjectUSV_piu
         private const int DESCRIPTION_INDEX = 1;
         private const int PRICE_INDEX = 2;
         private const int YEAR_INDEX = 3;
-        private const int VIN_INDEX = 4; 
+        public const int VIN_INDEX = 4; 
         private const int KM_ON_BOARD_INDEX = 5;
         private const int COMPLECTATION_INDEX = 6;
         private const int TYPE_INDEX = 7;
-        private const int OPTIONS_INDEX = 8;
-        private const int ADDOPTIONS_INDEX = 9;
+        private const int OPTIONS_INDEX = 9;
+        private const int ADDOPTIONS_INDEX = 10;
+        private const int ISAVAILABLE_INDEX = 8;
 
         #endregion
 
@@ -120,24 +121,26 @@ namespace ProjectUSV_piu
             if (string.IsNullOrEmpty(StringFromOptions(car)))
             {
                 return string.Format(
-                    "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}",
+                    "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}{1}{10}",
                     car.ProducerCompany,
                     MAIN_SEPARATOR,
                     car.Description,
-                
+
                     car.Price,
                     car.Year,
-                    
+
                     car.VIN,
                     car.kmOnBoard,
                     car.Complectation,
-                
+
                     car.Type,
+                    ConvertBoolToString(car.isAvailable),
                     EnumConverter.GeneralOptionsToString(car.Options)
+                    
                 );
             }
             return string.Format(
-                "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}{1}{10}",
+                "{0}{1}{2}{1}{3}{1}{4}{1}{5}{1}{6}{1}{7}{1}{8}{1}{9}{1}{10}{1}{11}",
                 car.ProducerCompany,
                 MAIN_SEPARATOR,
                 car.Description,
@@ -150,8 +153,12 @@ namespace ProjectUSV_piu
                 car.Complectation,
                 
                 car.Type,
+                ConvertBoolToString(car.isAvailable),
                 EnumConverter.GeneralOptionsToString(car.Options),
                 StringFromOptions(car) 
+                
+
+
             );
             //govnocod off
         }
@@ -166,6 +173,7 @@ namespace ProjectUSV_piu
                     data[DESCRIPTION_INDEX],
                     int.Parse(data[PRICE_INDEX]),
                     int.Parse(data[YEAR_INDEX]),
+                    ConvertStringToBool(data[ISAVAILABLE_INDEX]),
                     GetModelFromDescription(data[DESCRIPTION_INDEX]),
                     data[VIN_INDEX],
                     int.Parse(data[KM_ON_BOARD_INDEX]),
@@ -181,6 +189,7 @@ namespace ProjectUSV_piu
                 data[DESCRIPTION_INDEX],
                 int.Parse(data[PRICE_INDEX]),
                 int.Parse(data[YEAR_INDEX]),
+                ConvertStringToBool(data[ISAVAILABLE_INDEX]),
                 GetModelFromDescription(data[DESCRIPTION_INDEX]),
                 data[VIN_INDEX],
                 int.Parse(data[KM_ON_BOARD_INDEX]),
@@ -235,6 +244,20 @@ namespace ProjectUSV_piu
         #endregion
 
 
+        protected bool ConvertStringToBool(string value)
+        {
+            if(value == "1")
+                return true;
+            else
+                return false;//pohui
+        }
+
+
+        protected string ConvertBoolToString(bool value)
+        {
+            if (value) return "1";
+            else return "0";
+        }
         protected virtual Car BuildNew(Car basicCar,string complectation, Product[] addOptions) //unsolved BUT USED. Resolve or remove for similar functions.
         {
             int price = 0;

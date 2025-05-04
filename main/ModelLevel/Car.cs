@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace ProjectUSV_piu
 {
     public class Car : Product
@@ -11,8 +13,10 @@ namespace ProjectUSV_piu
         public string VIN { get; private set; }
 
         public int Year { get; private set; }
+
+        public bool isAvailable { get; private set; }
         
-        public bool isSold { get; protected set; }
+        public bool isUsed { get; protected set; }
         public string Complectation {  get; private set; }
 
         public Product[] AddOptions { get; protected set; }
@@ -20,14 +24,16 @@ namespace ProjectUSV_piu
         public GeneralOptions Options;
 
         public int kmOnBoard { get; private set; }
-        public Car(string company,string description,int price,int year, string model,string VIN, int kmOnBoard, Engine engine, string complectation,VehicleType type,GeneralOptions options, Product[] addOptions) : base(company,description,price)
+        public Car(string company,string description,int price,int year,bool available, string model,string VIN, int kmOnBoard, Engine engine, string complectation,VehicleType type,GeneralOptions options, Product[] addOptions) : base(company,description,price)
         {
+            isAvailable = available;
             Year = year;
             Model = model;
             Engine = engine;
             Type = type;
             Complectation = complectation;
             this.VIN = VIN;
+            this.kmOnBoard = kmOnBoard;
             Options = options;
             if(addOptions != null)
             {
@@ -37,13 +43,14 @@ namespace ProjectUSV_piu
             
 
             if (kmOnBoard < 10)
-                isSold = false;
+                isUsed = false;
             else
-                isSold = true;
+                isUsed = true;
         }
 
-        public Car(Car basicCar, Engine engine, int price,string complectation, Product[] options):base(basicCar.ProducerCompany,basicCar.Description,price) 
+        public Car(Car basicCar, Engine engine, int price,string complectation, Product[] options):base(basicCar.ProducerCompany,basicCar.Description,price) //used by Constructor
         {
+            isAvailable = false;
             Model=basicCar.Model;
             Engine = engine;
             VIN = VINandTime.GetNewVIN();
@@ -57,11 +64,37 @@ namespace ProjectUSV_piu
                 AddOptions.CopyTo(options, 0);
             }
 
-            isSold = false;
+            isUsed = false;
         }
         public virtual string GetFullName()
         {
             return $"{ProducerCompany} {Model}";
+        }
+
+        public string GetBasicOptions()
+        {
+            string selected = "";
+            foreach (GeneralOptions opt in Enum.GetValues(typeof(GeneralOptions)))
+            {
+                if (opt != 0 && Options.HasFlag(opt))
+                {
+                    selected += opt + ",";
+                }
+            }
+            return selected;
+        }
+
+        public string GetAddOptions() 
+        { 
+            string s = string.Empty;
+            if(AddOptions == null)
+                return s;
+            foreach (var item in AddOptions)
+            {
+                s += item.Description + ",";
+            }
+            return s;
+
         }
 
     }

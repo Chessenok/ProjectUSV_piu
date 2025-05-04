@@ -48,8 +48,8 @@ namespace ProjectUSV_piu
                 new Product("BMW Options","Assistant Professional",2000),
                 new Product("BMW Options","Traffic Jam",1000)
             };
-           Base5series = new Car("BMW","G30", 45200,2020,"5 series",VINandTime.GetNewVIN(),0, _engines["B48"], "520i",VehicleType.Sedan,complectations["520i"].options , null);
-           Base3series = new Car("BMW", "G20", 35200,2020,"3 series",VINandTime.GetNewVIN() ,0, _engines["B48"], "320i",VehicleType.Sedan,complectations["320i"].options, null);
+           Base5series = new Car("BMW","G30", 45200,2020,false,"5 series",VINandTime.GetNewVIN(),0, _engines["B48"], "520i",VehicleType.Sedan,complectations["520i"].options , null);
+           Base3series = new Car("BMW", "G20", 35200,2020,false, "3 series",VINandTime.GetNewVIN() ,0, _engines["B48"], "320i",VehicleType.Sedan,complectations["320i"].options, null);
         }
 
         public Car BuildNew3Series(string complectation, Product[] options)

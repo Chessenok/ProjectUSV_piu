@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-
+using System.Linq;
 namespace ProjectUSV_piu
 {
     public class AdministrateFile : AdministrateCars
@@ -79,6 +79,26 @@ namespace ProjectUSV_piu
 
            return cars;
        }
+
+    public void UpdateCar(Car c)
+        {
+           for(int i = 0; i < _carsList.Count; i++)
+            {
+                Car car = _carsList[i];
+                if(car.VIN == c.VIN)
+                {
+                    _carsList[i] = c;
+                }
+            }
+            UpdateFile();
+        }
+
+        public void UpdateFile()
+        {
+             var lines = _carsList.Select(Factory.GetStringFromCar).ToList();
+            File.WriteAllLines(_fileName, lines);
+            return;
+        }
 
         public async Task WriteCarToFileAsync(Car car)
         {

@@ -24,7 +24,7 @@ namespace ProjectUSV_piu {
         {
             List<Car> cars = new List<Car>();
             bool success = false;
-            foreach (var c in _carsList)        //LINQ should be used here, but it will be overkill for this project
+            foreach (var c in _carsList)        
             {
                 if (c.Model == model)
                 {

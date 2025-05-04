@@ -17,7 +17,7 @@ namespace wpfApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CarForm());
+            Application.Run(new BMWDealerForm());
         }
     }
 }
