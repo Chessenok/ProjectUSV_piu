@@ -42,15 +42,18 @@ namespace wpfApp1
 
         private void CommandCar_Click(object sender, EventArgs e)
         {
-
+            var addCarForm = new AddCarForm(this,factory,admin);
+            this.Hide();
+            addCarForm.ShowDialog();
+            this.Show();
         }
 
         private void UsedCars_Click(object sender, EventArgs e)
-        {
-
+        { 
             Cars.ShowUsedCars();
             this.Hide();
         }       
+
 
         private void SoldCars_Click(object sender, EventArgs e)
         {

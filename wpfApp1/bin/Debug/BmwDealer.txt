@@ -1,6 +1,8 @@
-BMW;G20;38000;2020;J9OXFKILCFX3UINYR;0;320d;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
-BMW;G30;59900;2020;2Q1QW1MBQAOCN8BDT;0;540i;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
-BMW;G30;54500;2020;ULQ9LL5USDVRO89VN;153250;530d;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
-BMW;G20;35200;2020;83S3L8DL6PT7PS1XR;0;320i;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
-BMW;G30;59900;2020;ZS4M290ZYFPS4HZX7;12200;540i;Sedan;0;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
-BMW;G20;49900;2020;GKTN8EW0AW4XON723;328000;340i;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G20;40000;2020;J9OXFKILCFX3UINYR;0;320d;Cosmic Black;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G30;59900;2020;2Q1QW1MBQAOCN8BDT;0;540i;Dark Gray;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G30;50500;2020;ULQ9LL5USDVRO89VN;153250;530d;Pearl White;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G20;35200;2020;83S3L8DL6PT7PS1XR;0;320i;Navy Blue;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G30;59900;2020;ZS4M290ZYFPS4HZX7;12200;540i;Cosmic Black;Sedan;0;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G20;49900;2020;GKTN8EW0AW4XON723;328000;340i;Autumn Orange;Sedan;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant
+BMW;G30;55800;2025;WNZG7CIQCXR18O5BI;0;520d;Sedan;Other;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant;BMW Options.Head-Up Display.750|BMW Options.Keyless Go.500|BMW Options.xDrive.2500|BMW Options.Luxury Leather Seats.2550|BMW Options.Assistant Professional.2000|BMW Options.Panorama Roof.500
+BMW;G07;98950;2025;UYW8LKTZWC9FN3M25;0;X7 40d;SUV;Other;1;AirConditioning,SeatsHeat,SeatsConditioning,RearCamera,Camera360,Parktronic,TrafficAssistant;BMW Options.xDrive.2500|BMW Options.Keyless Go.500|BMW Options.Assistant Professional.2000|BMW Options.Luxury Leather Seats.2550|BMW Options.Panorama Roof.500

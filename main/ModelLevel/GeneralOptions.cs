@@ -12,6 +12,10 @@ namespace ProjectUSV_piu
         RearCamera,
         Camera360,
         Parktronic,
-        TrafficAssistant
-    }
+        TrafficAssistant,
+        Sunroof,
+        Panorama,
+        KeylessGo,
+        HUD
+    } 
 }

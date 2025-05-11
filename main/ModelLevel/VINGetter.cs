@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace ProjectUSV_piu
 {
-    public class VINandTime
+    public class VINGetter
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        public int Year {  get; private set; }
+       // public int Year {  get; private set; }
         private static List<string> _allVINs = new List<string>();//for internal purposes
-        private static VINandTime _instance;
+        private static VINGetter _instance;
         private static readonly object _lock = new object(); 
 
-        public static VINandTime Instance
+        public static VINGetter Instance
         {
             get
             {
@@ -22,7 +22,7 @@ namespace ProjectUSV_piu
                     {
                         if (_instance == null) 
                         {
-                            _instance = new VINandTime();
+                            _instance = new VINGetter();
                         }
                     }
                 }
@@ -40,10 +40,6 @@ namespace ProjectUSV_piu
             }
             _allVINs.Add(new string(str));
             return new string(str);
-        }
-        public void HappyNewYear()
-        {
-            Year++;
         }
     }
 }

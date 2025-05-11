@@ -14,12 +14,40 @@ namespace ProjectUSV_piu {
 
         public void SoldCar(Car car)
         {
-            //car.Sold();
+            bool flag = false;
+            foreach (var c in _carsList)
+            {
+                if (c.VIN == car.VIN)
+                {
+                    c.isAvailable = false;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                car.isAvailable = false;
+                AddCar(car);
+            }
         }
-        public Car[] GetAllCars()
+        public virtual List<Car> GetAllCars()
         {
-            return _carsList.ToArray();
+            return _carsList;
         }
+
+        public virtual void ModifyAndSaveCar(Car car) 
+        {
+            foreach (Car c in _carsList)
+            {
+                if (c.VIN == car.VIN)
+                {
+                    int index = _carsList.IndexOf(c);
+                    _carsList[index] = car;
+                    break;
+                }
+            }
+        }
+
         public bool GetAllCarsByModel(string model, out Car[] car)
         {
             List<Car> cars = new List<Car>();
@@ -36,6 +64,23 @@ namespace ProjectUSV_piu {
             return success;
         }
 
+        public bool GetCarsByIndex(string index, out List<Car> cars, bool available)
+        {
+            cars = new List<Car>();
+            foreach (var c in _carsList)
+            {
+                if (c.Description == index && c.isAvailable == available)
+                {
+                    cars.Add(c);
+                }
+            }
+            if (cars.Count == 0)
+            {
+                return false;
+            }
+            else
+                return true;
+        }
         public bool GetCarByVIN(string vin, out Car car)
         {
             foreach (var c in _carsList)

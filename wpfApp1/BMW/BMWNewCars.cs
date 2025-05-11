@@ -58,10 +58,9 @@ namespace wpfApp1.BMW
 
         private void DisplayNewCars(List<Car> carList)
         {
-            // Clear existing car entries from the panel
             groupCars.Controls.Clear();
             groupCars.AutoScroll = true;
-            groupCars.AutoScrollPosition = new Point(0, 0); // Reset scroll
+            groupCars.AutoScrollPosition = new Point(0, 0); 
 
             int yOffset = 10;
             foreach (var car in carList)
@@ -90,7 +89,7 @@ namespace wpfApp1.BMW
                     Width = 120,
                     Tag = car
                 };
-                editButton.Click += (s, e) => EditCar((Car)((Control)s).Tag);
+                editButton.Click += (s, e) => EditCar((Car)((Control)s).Tag, infoLabel);
 
                 var sellButton = new MetroButton
                 {
@@ -114,11 +113,61 @@ namespace wpfApp1.BMW
             }
 
         }
+
+        private void OnSearchVin(bool available)
+        {
+            string vin = vinTextBox.Text;
+            Car car = null;
+            List<Car> list = new List<Car>();
+            if(admin.GetCarByVIN(vin, out car))
+            {
+                if (car.isAvailable == available)
+                {
+                    list.Add(car);
+                    DisplayNewCars(list);
+                }
+                else
+                {
+                    MessageBox.Show("Car not found!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Car not found!");
+            }
+        }
+
+        private void OnSearchVinNew_Click(object sender,EventArgs e)
+        {
+            OnSearchVin(true);
+        }
+        private void OnSearchVinSold_Click(object sender,EventArgs e)
+        {
+            OnSearchVin(false);
+        }
+
+        private void OnSearchIndexNew_Click(object sen,EventArgs e)
+        {
+            SearchByIndex(true);
+        }
+        private void OnSearchIndexSold_Click(object sen,EventArgs e)
+        {
+            SearchByIndex(false);
+        }
+
+        private void SearchByIndex(bool available)
+        {
+            List<Car> list = new List<Car>();
+            if (admin.GetCarsByIndex(IndexTextBox.Text, out list, available))
+                DisplayNewCars(list);
+            else
+                MessageBox.Show("Cars not found!");
+        }
         private void DisplayUsedCars(List<Car> carList)
         {
             groupCars.Controls.Clear();
             groupCars.AutoScroll = true;
-            groupCars.AutoScrollPosition = new Point(0, 0); // Reset scroll
+            groupCars.AutoScrollPosition = new Point(0, 0); 
 
             int yOffset = 10;
             foreach (var car in carList)
@@ -147,7 +196,7 @@ namespace wpfApp1.BMW
                     Width = 120,
                     Tag = car
                 };
-                editButton.Click += (s, e) => EditCar((Car)((Control)s).Tag);
+                editButton.Click += (s, e) => EditCar((Car)((Control)s).Tag,infoLabel);
 
                 var sellButton = new MetroButton
                 {
@@ -172,12 +221,19 @@ namespace wpfApp1.BMW
 
         }
 
-        private void EditCar(Car car)
+        private void EditCar(Car car, MetroLabel txt)
         {
-            MessageBox.Show($"Edit car: {car.GetFullName()}\nVIN: {car.VIN}");
-            // TODO: Open a form or panel for editing
+            EditCarForm form = new EditCarForm(car);
+            form.ShowDialog();
+            admin.ModifyAndSaveCar(car);
+            txt.Text = $"Model: {car.Model}\nPrice: {car.Price}$\nEngine: {car.Engine.GetVolume()}cm3 - {car.Engine.MaxHP} HP\nType: {car.Type}\nComplactation: {car.Complectation}";
         }
 
+
+        private void UpdateCars(bool isAvailable)
+        {
+            
+        }
         private void SellCar(Car car)
         {
             if (!car.isAvailable)

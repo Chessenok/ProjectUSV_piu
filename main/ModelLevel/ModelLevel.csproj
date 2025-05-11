@@ -48,7 +48,7 @@
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VehicleType.cs" />
-    <Compile Include="VINandTime.cs" />
+    <Compile Include="VINGetter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

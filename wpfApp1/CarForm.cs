@@ -111,11 +111,11 @@ namespace ProjectUSV_piu
                 this.Controls.Add(label);
                 if (sComplectation[0] == '5')
                 {
-                    admin.AddCar(factory.BuildNew5Series(sComplectation, null));
+                   // admin.AddCar(factory.BuildNew5Series(sComplectation, null));
                 }
                 else
                 {
-                    admin.AddCar(factory.BuildNew3Series(sComplectation, null));
+                    //admin.AddCar(factory.BuildNew3Series(sComplectation, null));
                 }
             }
             else

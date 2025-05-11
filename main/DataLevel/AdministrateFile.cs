@@ -34,26 +34,32 @@ namespace ProjectUSV_piu
             await WriteCarToFileAsync(car);
         }
 
-       /* public async Task<List<Car>> ReadFromFileAsync()
+        public override void ModifyAndSaveCar(Car car)
         {
-            var cars = new List<Car>();
-            using (var streamReader = new StreamReader(_fileName))
-            {
-                string line;
-                while ((line = await streamReader.ReadLineAsync()) != null)
-                {
-                    if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        Car car = _factory.BuildCarFromString(line);
-                        cars.Add(car);
-                    }
-                }
-            }
+            base.ModifyAndSaveCar(car);
+            UpdateFile();
+        }
 
-            return cars;
-        }*/
-       
-       public async Task<List<Car>> ReadFromFileAsync()
+        /* public async Task<List<Car>> ReadFromFileAsync()
+         {
+             var cars = new List<Car>();
+             using (var streamReader = new StreamReader(_fileName))
+             {
+                 string line;
+                 while ((line = await streamReader.ReadLineAsync()) != null)
+                 {
+                     if (!string.IsNullOrWhiteSpace(line))
+                     {
+                         Car car = _factory.BuildCarFromString(line);
+                         cars.Add(car);
+                     }
+                 }
+             }
+
+             return cars;
+         }*/
+
+        public async Task<List<Car>> ReadFromFileAsync()
        {
            var cars = new List<Car>();
 
@@ -95,7 +101,7 @@ namespace ProjectUSV_piu
 
         public void UpdateFile()
         {
-             var lines = _carsList.Select(Factory.GetStringFromCar).ToList();
+            var lines = _carsList.Select(Factory.GetStringFromCar).ToList();
             File.WriteAllLines(_fileName, lines);
             return;
         }
